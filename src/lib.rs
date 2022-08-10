@@ -399,7 +399,7 @@ impl CommonMarkViewerInternal {
             max_width
         };
 
-        let layout = egui::Layout::left_to_right()
+        let layout = egui::Layout::left_to_right(egui::Align::Center)
             .with_main_wrap(true)
             .with_cross_align(egui::Align::BOTTOM);
 
@@ -937,7 +937,7 @@ fn width_body_space(ui: &Ui) -> f32 {
 
 fn parse_image(ctx: &egui::Context, url: String, data: &[u8]) -> Option<TextureHandle> {
     let image = load_image(data).ok().or_else(|| try_render_svg(data));
-    image.map(|image| ctx.load_texture(url, image))
+    image.map(|image| ctx.load_texture(url, image, egui::TextureFilter::Linear))
 }
 
 #[cfg(feature = "fetch")]
